@@ -38,7 +38,7 @@ export async function uploadFile(
 
     const baseInterval = 50 + uploadRng.next() * 50;
 
-    let intervalId: number | null = null;
+    let intervalId: ReturnType<typeof setInterval> | null = null;
     let aborted = false;
 
     const cleanup = () => {

@@ -56,6 +56,54 @@ npm run test:watch   # Run tests in watch mode
 npm run lint         # Lint code
 npm run typecheck    # Type check without emitting
 npm run format       # Format code with Prettier
+npm run format:check # Check if code is formatted
+npm run precommit    # Run all pre-commit checks manually
+```
+
+## Git Hooks & Code Quality
+
+This project uses Husky for Git hooks to ensure code quality:
+
+### Pre-commit Hooks
+
+- **Formatting**: Automatically formats staged files with Prettier
+- **Linting**: Runs ESLint with auto-fix on staged files
+- **Testing**: Runs all tests to ensure nothing is broken
+- **Type Checking**: Validates TypeScript types
+
+### Commit Message Format
+
+Commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Allowed types:**
+
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation only changes
+- `style`: Changes that do not affect the meaning of the code
+- `refactor`: A code change that neither fixes a bug nor adds a feature
+- `perf`: A code change that improves performance
+- `test`: Adding missing tests or correcting existing tests
+- `build`: Changes that affect the build system or external dependencies
+- `ci`: Changes to CI configuration files and scripts
+- `chore`: Other changes that don't modify src or test files
+- `revert`: Reverts a previous commit
+
+**Examples:**
+
+```bash
+git commit -m "feat: add file upload progress tracking"
+git commit -m "fix: resolve memory leak in upload manager"
+git commit -m "docs: update README with setup instructions"
+git commit -m "refactor: simplify upload state management"
 ```
 
 ## Architecture Overview
@@ -85,10 +133,10 @@ All APIs are mocked using tRPC with configurable behavior:
 ```typescript
 // Adjust mock behavior in src/server/trpc.ts
 export const mockConfig = {
-  latencyMs: [200, 1200],    // Random latency range
-  failRate: 0.15,            // 15% failure rate
-  seed: 42,                  // Deterministic randomization
-  forceAllSuccess: false,    // Override failures for demos
+  latencyMs: [200, 1200], // Random latency range
+  failRate: 0.15, // 15% failure rate
+  seed: 42, // Deterministic randomization
+  forceAllSuccess: false, // Override failures for demos
 };
 ```
 
@@ -127,6 +175,7 @@ npm run test -- --coverage
 ```
 
 Test coverage includes:
+
 - Upload manager functionality
 - File state transitions
 - Concurrency control
@@ -151,11 +200,13 @@ mockConfig.latencyMs = [0, 100];
 ## Trade-offs & Extensions
 
 ### Current Implementation
+
 - **Simplicity**: Uses React hooks instead of complex state machines
 - **Performance**: Efficient concurrent upload management
 - **Testing**: Fully mocked for reliable testing
 
 ### Possible Extensions
+
 - **Resumable Uploads**: Add support for pausing/resuming large files
 - **Multipart Uploads**: Handle very large files with chunked uploads
 - **Persistence**: Save upload state to localStorage
@@ -183,27 +234,27 @@ MIT License - see LICENSE file for details
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
       // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
+      reactX.configs["recommended-typescript"],
       // Enable lint rules for React DOM
       reactDom.configs.recommended,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```

@@ -1,5 +1,5 @@
-import { useUploadContext } from '../context/useUploadContext';
-import { ItemRow } from './ItemRow';
+import { useUploadContext } from "../context/useUploadContext";
+import { ItemRow } from "./ItemRow";
 
 export function Queue() {
   const { items } = useUploadContext();
