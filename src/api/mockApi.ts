@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   GetUploadUrlInput,
   GetUploadUrlOutput,
+  NotifyCompletionInput,
   NotifyCompletionOutput,
   ProcessFileInput,
   ProcessFileOutput,
@@ -74,7 +75,10 @@ export const mockApi = {
     };
   },
 
-  async notifyCompletion(): Promise<z.infer<typeof NotifyCompletionOutput>> {
+  async notifyCompletion(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _: z.infer<typeof NotifyCompletionInput>
+  ): Promise<z.infer<typeof NotifyCompletionOutput>> {
     await sleep(randomLatency());
 
     if (shouldFail()) {

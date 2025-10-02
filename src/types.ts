@@ -39,6 +39,11 @@ export const ProcessFileOutput = z.object({
   success: z.boolean(),
 });
 
+export const NotifyCompletionInput = z.object({
+  id: z.string(),
+  status: z.enum(["success", "failed"]),
+});
+
 export const NotifyCompletionOutput = z.object({
   success: z.boolean(),
 });
