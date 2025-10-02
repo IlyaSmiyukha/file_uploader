@@ -102,10 +102,10 @@ export function ItemRow({ item }: ItemRowProps) {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 mr-4 w-36">
+        <div className="flex items-center gap-3 mr-4 md:w-36">
           {showProgress ? (
             <>
-              <div className="w-24 bg-gray-200 rounded-full h-2">
+              <div className="hidden md:flex w-24 bg-gray-200 rounded-full h-2">
                 <div
                   className="bg-blue-600 h-2 rounded-full transition-all duration-300"
                   style={{ width: `${progress}%` }}

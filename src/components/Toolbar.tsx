@@ -20,7 +20,7 @@ export function Toolbar() {
           Start Uploads
         </button>
 
-        <div className="flex items-center gap-3 text-sm min-w-0 flex-1 justify-center">
+        <div className="hidden md:flex items-center gap-3 text-sm min-w-0 flex-1 justify-center">
           <span className="text-gray-600 w-16 text-center">
             {counts.total > 0 ? `${counts.total} files` : ""}
           </span>
