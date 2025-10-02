@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useUploadManager } from "../uploadManager";
 
@@ -79,7 +79,7 @@ describe("useUploadManager", () => {
     expect(result.current.items).toHaveLength(1);
   });
 
-  it("should start uploads when startAll is called", () => {
+  it("should start uploads when startAll is called", async () => {
     const { result } = renderHook(() => useUploadManager());
 
     const mockFile = new File(["test content"], "test.txt", {
@@ -92,6 +92,11 @@ describe("useUploadManager", () => {
     });
 
     expect(result.current.isRunning).toBe(true);
+
+    // Wait for async operations to complete
+    await waitFor(() => {
+      expect(result.current.active.length).toBeGreaterThan(0);
+    });
   });
 
   it("should remove items from the queue", () => {
